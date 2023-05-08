@@ -3,7 +3,7 @@ public class Pila {
     private int limite, tope;
 
     // Metodos Principales
-    public void apilar(int d) {
+    public void apilar(float d) {
         Nodo x = new Nodo(d);
         x.setNext(Punta);
         Punta=x;

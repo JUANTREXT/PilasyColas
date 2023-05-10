@@ -3,7 +3,7 @@ public class Pila {
     private int limite, tope;
 
     // Metodos Principales
-    public void apilar(int d) {
+    public void apilar(Float d) {
         Nodo x = new Nodo(d);
         x.setNext(Punta);
         Punta=x;
@@ -16,6 +16,21 @@ public class Pila {
         Punta = Punta.getNext();
         tope--;
         return d.getData();
+    }
+
+    public void invertir () {
+        Pila aux = new Pila(limite);
+        while (!pilaVacia()){
+            aux.apilar(this.desapilar());
+        }
+        this.Punta = aux.getPunta();
+    }
+
+    public void pasar(Pila P){
+        while(!P.pilaLlena()) {
+            this.apilar(P.desapilar());
+        }
+
     }
 
     // Utilidad

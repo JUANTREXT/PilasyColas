@@ -25,6 +25,21 @@ public class Pila {
         return d.getData();
     }
 
+    public void invertir () {
+        Pila aux = new Pila(limite);
+        while (!pilaVacia()){
+            aux.apilar(this.desapilar());
+        }
+        this.Punta = aux.getPunta();
+    }
+
+    public void pasar(Pila P){
+        while(!P.pilaLlena()) {
+            this.apilar(P.desapilar());
+        }
+
+    }
+
     // Utilidad
     public boolean pilaLlena() {
         return tope == limite-1 ? true : false;

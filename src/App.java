@@ -60,12 +60,12 @@ public class App {
                     case 6:
                         String s = "Sin pilas";
                         if (pilas.size() != 0)
-                            s = "| ";
+                            s = "";
                         for (int i = 0; i < pilas.size(); i++) {
-                            s += i + (pilas.get(i).pilaVacia() ? " Vacia "
+                            s +=  "| "+ i + (pilas.get(i).pilaVacia() ? " Vacia "
                                     : pilas.get(i).pilaLlena() ? " pila llena " : "Tiene elementos ") + "| \n";
                         }
-                        JOptionPane.showMessageDialog(null, "pilas : \n\n " + s);
+                        JOptionPane.showMessageDialog(null, "pilas : \n\n" + s);
                         break;
 
                     case 7:

@@ -3,6 +3,13 @@ public class Pila {
     private int limite, tope;
 
     // Metodos Principales
+
+    public void vaciar() {
+        while(!pilaVacia()) {
+            desapilar();
+        }
+    }
+
     public void apilar(float d) {
         Nodo x = new Nodo(d);
         x.setNext(Punta);
@@ -12,8 +19,8 @@ public class Pila {
 
     public float desapilar() {
         Nodo d = Punta;
-        d.setNext(null);
         Punta = Punta.getNext();
+        d.setNext(null);
         tope--;
         return d.getData();
     }
@@ -43,7 +50,7 @@ public class Pila {
     public int getLimite() {
         return limite;
     }
-    public void setLimite(int limite) {
+    public void setLimite(int limite) { // hacer modificacion para cuando se disminuye el limite.
         this.limite = limite;
     }
     public int getTope() {

@@ -10,15 +10,24 @@ public class App {
         pilas.add(e);
         pilas.get(pilaActual);
 
-        // enteros auxiliares
+        // auxiliares
         int a = 0;
+        String s = "";
+        float b[];
 
         while (true) {
             try {
                 switch (menu(pilaActual, pilas.size())) {
-                    case 1: // mostra
-                        // JOptionPane.showMessageDialog(null, pilas[pilaActual].mostrar());
-
+                    case 1: // mostrar
+                        s = "";
+                        b = pilas.get(pilaActual).mostrar();
+                        for (int i = 0; i < b.length; i++) {
+                            System.out.println(i + " -> " + b[i]);
+                            s += "| " + b[i]  + " |\n";
+                        }
+                           
+                        
+                        JOptionPane.showMessageDialog(null, s);
                         break;
 
                     case 2: // apilar
@@ -48,22 +57,25 @@ public class App {
                     case 5: // cambiar de pila
                         if (pilas.size() == 0)
                             JOptionPane.showMessageDialog(null, "No hay pilas");
-                        a = Integer.parseInt(
-                                JOptionPane.showInputDialog(null, "A que pila desea cambiar? Actualemente hay "
-                                        + pilas.size() + (pilas.size() != 1 ? " pilas" : " pila")));
-                        if (a < 0 && a >= pilas.size())
-                            pilaActual = a - 1;
-                        else
-                            JOptionPane.showMessageDialog(null, "Pila no existente");
+                        else {
+                            a = Integer.parseInt(
+                                    JOptionPane.showInputDialog(null, "A que pila desea cambiar? Actualemente hay "
+                                            + pilas.size() + (pilas.size() != 1 ? " pilas" : " pila")));
+    
+                            if (a > 0 && a <= pilas.size())
+                                pilaActual = a - 1;
+                            else
+                                JOptionPane.showMessageDialog(null, "Pila no existente");
+                        }
                         break;
 
                     case 6:
-                        String s = "Sin pilas";
+                        s = "Sin pilas";
                         if (pilas.size() != 0)
                             s = "";
                         for (int i = 0; i < pilas.size(); i++) {
                             s +=  "| "+ i + (pilas.get(i).pilaVacia() ? " Vacia "
-                                    : pilas.get(i).pilaLlena() ? " pila llena " : "Tiene elementos ") + "| \n";
+                                    : pilas.get(i).pilaLlena() ? " pila llena " : " Tiene elementos ") + "| \n";
                         }
                         JOptionPane.showMessageDialog(null, "pilas : \n\n" + s);
                         break;
@@ -97,7 +109,7 @@ public class App {
                 } else if (err.getMessage() == "For input string: \"\"") {
                     JOptionPane.showMessageDialog(null, "No option selected");
                 } else {
-                    System.out.println(err.getMessage());
+                    System.out.println("err -> "+ err.toString());
                     JOptionPane.showMessageDialog(null, "Invalid Option");
                 }
             }
@@ -110,27 +122,25 @@ public class App {
                 "Pila Actual: " + (pilaActual + 1) +
                         "\nNumero de pilas" + npilas
                         +
-                        """
-
-                                1. Mostrar Pila.
-                                2. Apilar.
-                                3. Desapilar.
-                                4. Pasar.
-                                5. Cambiar pila actual.
-                                6. Pilas.
-                                7. Añadir pila.
-                                8. configurar pilas.
-                                9. Salir.
-                                """));
+                        
+                                "\n1. Mostrar Pila.\n"+
+                                "2. Apilar.\n"+
+                                "3. Desapilar.\n"+
+                                "4. Pasar.\n"+
+                                "5. Cambiar pila actual.\n"+
+                                "6. Pilas.\n"+
+                                "7. Añadir pila.\n"+
+                                "8. configurar pilas.\n"+
+                                "9. Salir."));
     }
 
     public static void config(ArrayList<Pila> pilas, int actual) {
-        switch (Integer.parseInt(JOptionPane.showInputDialog(null, """
+        switch (Integer.parseInt(JOptionPane.showInputDialog(null, 
 
-                1. Cambiar limite.
-                2. Eliminar Pila.
-                3. Vaciar pila.
-                """))) {
+                "1. Cambiar limite\n."+
+                "2. Eliminar Pila\n."+
+                "3. Vaciar pila."
+                ))) {
 
             case 1:
                 pilas.get(actual).setLimite(Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese Limite.")));

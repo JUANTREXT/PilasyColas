@@ -4,6 +4,22 @@ public class Pila {
 
     // Metodos Principales
 
+    public float[] mostrar() {
+        float a[] = {};
+        Pila pilaAux = new Pila(limite);
+        float aux = 0;
+        while (!pilaVacia()) {
+            pilaAux.apilar(this.desapilar());
+        }
+        for (int i = 0; i<pilaAux.getTope(); i++) {
+            aux = pilaAux.desapilar();
+            this.apilar(aux);
+            a[i] = aux;
+        }
+
+        return a;
+    }
+
     public void vaciar() {
         while(!pilaVacia()) {
             desapilar();

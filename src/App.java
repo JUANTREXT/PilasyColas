@@ -50,7 +50,7 @@ public class App {
                         try {
                             if (a != pilaActual + 1 && pilas.size() >= a && a > -1) {
                                 System.out.println("En espera del metodo.");
-                                // pilas.get(a-1).pasar();
+                                 pilas.get(pilaActual).pasar(pilas.get(a-1));
                             }
                         } catch (Exception er) {
                             System.out.println(er.getCause());

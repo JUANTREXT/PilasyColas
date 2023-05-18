@@ -24,7 +24,7 @@ public class Pila {
             a[i] = aux;
             i++;
         }
-        a[4] = null;
+
         return a; 
     }
 

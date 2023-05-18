@@ -1,3 +1,5 @@
+.gitignore
+/bin/Cola
 # Compiled class file
 *.class
 .vscode

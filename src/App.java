@@ -13,21 +13,25 @@ public class App {
         // auxiliares
         int a = 0;
         String s = "";
-        float b[];
+        Float b[];
 
         while (true) {
             try {
                 switch (menu(pilaActual, pilas.size())) {
                     case 1: // mostrar
-                        s = "";
-                        b = pilas.get(pilaActual).mostrar();
-                        for (int i = 0; i < b.length; i++) {
-                            System.out.println(i + " -> " + b[i]);
-                            s += "| " + b[i]  + " |\n";
+                        if(!pilas.get(pilaActual).pilaVacia()) {
+                            s = "";
+                            b = pilas.get(pilaActual).mostrar();
+                            for (int i = 0; i < b.length; i++) {
+                                if (b[i] != null) {
+                                    s += "| " + b[i]  + " |\n";
+                                }
+                            }
+                        } else {
+                            s = "Lista Vacia";
                         }
-                           
                         
-                        JOptionPane.showMessageDialog(null, s);
+                        JOptionPane.showMessageDialog(null, s!="Lista Vacia"?"Los elementos son: \n"+s:s);
                         break;
 
                     case 2: // apilar

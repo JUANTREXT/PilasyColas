@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class Cola{
         private int[] Vc;
         private int tope, limite, n;
@@ -145,7 +147,7 @@ public class Cola{
                else 
                {
                    CA.Encolar(d);
-                   CA.Desencolar(r);
+                   CA.Desencolar();
                    CA.LlenarCola();
                }
            }
@@ -163,7 +165,7 @@ public class Cola{
                else 
                {
                    CA.Encolar(d);
-                   CA.Desencolar(r);
+                   CA.Desencolar();
                    CA.LlenarCola();
                }
            }
@@ -172,7 +174,7 @@ public class Cola{
     }
     
     public void Mostrar(){
-
+        //pass
     }
 
 

@@ -1,23 +1,31 @@
+import java.util.Arrays;
+
 public class Pila {
     private Nodo Punta;
     private int limite, tope;
 
     // Metodos Principales
 
-    public float[] mostrar() {
-        float a[] = {};
+    public Float[] mostrar() {
+        // Se usa un array de objetos Float para usar null como diferenciador entre 0 y 0 real
+        Float[] a = new Float[limite];
+        Arrays.fill(a, null);
+
         Pila pilaAux = new Pila(limite);
         float aux = 0;
-        while (!pilaVacia()) {
+        while (!pilaVacia()){
             pilaAux.apilar(this.desapilar());
         }
-        for (int i = 0; i<pilaAux.getTope(); i++) {
+        pilaAux.invertir();
+        int i = 0;
+        while(!pilaAux.pilaVacia()) {
             aux = pilaAux.desapilar();
             this.apilar(aux);
             a[i] = aux;
+            i++;
         }
-
-        return a;
+        a[4] = null;
+        return a; 
     }
 
     public void vaciar() {
@@ -42,11 +50,19 @@ public class Pila {
     }
 
     public void invertir () {
-        Pila aux = new Pila(limite);
-        while (!pilaVacia()){
-            aux.apilar(this.desapilar());
+        Pila aux1 = new Pila(limite);
+        Pila aux2 = new Pila(limite);
+
+        while(!pilaVacia()) {
+            aux1.apilar(this.desapilar());
         }
-        this.Punta = aux.getPunta();
+        while(!aux1.pilaVacia()) {
+            aux2.apilar(aux1.desapilar());
+        }
+
+        while(!aux2.pilaVacia()) {
+            this.apilar(aux2.desapilar());
+        }
     }
 
     public void pasar(Pila P){

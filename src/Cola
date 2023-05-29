@@ -1,181 +1,125 @@
 import javax.swing.JOptionPane;
 
-public class Cola{
-        private int[] Vc;
-        private int tope, limite, n;
-    
-        public Cola(int n) {
-            this.n = n;
-            limite = n-1;
-            tope = -1;
-            Vc = new int[n];
-        }
-    
-        public int getLimite() {
-            return limite;
-        }
-    
-        public void setLimite(int limite) {
-            this.limite = limite;
-        }
-    
-        public int getTope() {
-            return tope;
-        }
-    
-        public void setTope(int tope) {
-            this.tope = tope;
-        }
-        
-        public int getN() {
-            return n;
-        }
-    
-        public void setN(int n) {
-            this.n = n;
-        }
-    
-        public int[] getVc() {
-            return Vc;
-        }
-    
-        public void setVc(int[] Vc) {
-            this.Vc = Vc;
-        }
-          
-        public int getVc(int t) {
-            return Vc[t];
-        }
-    
-        public void setVc(int t, int d) {
-            Vc[t] = d;
-        }
-        
-        //Métodos de colas
-        public void Encolar(int d) {
-            if (!ColaLlena()) {
-                tope++;
-                Vc[tope] = d;
+public class Cola {
+    private NodoCola primerNodo;
+    private NodoCola ultimoNodo;
+    private int limite, n;
+
+    public Cola(int n) {
+        this.n = n;
+        limite = n - 1;
+        primerNodo = null;
+        ultimoNodo = null;
+    }
+
+    public int getLimite() {
+        return limite;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public boolean colaVacia() {
+        return primerNodo == null;
+    }
+
+    public void encolar(int d) {
+        if (!colaLlena()) {
+            NodoCola nuevoNodo = new NodoCola(d);
+            if (colaVacia()) {
+                primerNodo = nuevoNodo;
+                ultimoNodo = nuevoNodo;
             } else {
-                System.out.println("La cola está llena");
+                ultimoNodo.setSiguiente(nuevoNodo);
+                ultimoNodo = nuevoNodo;
             }
+        } else {
+            System.out.println("La cola está llena");
         }
-        
-        public int Desencolar() {
-            int R = Vc[0];
-            for (int i = 1; i <= tope; i++) {
-                Vc[i-1] = Vc[i];
-            }
-            tope--;
-            return R;
-        }
-        
-        public boolean ColaLlena() {
-            return tope == limite;
-        }
-        
-        public boolean ColaVacia() {
-            return tope == -1;
-        }
-        
-        public void LlenarCola(Cola C1) {
-            while (!C1.ColaVacia() && !ColaLlena()) {
-                Encolar(C1.Desencolar());
-            }
-        }
-        
-        public void OrdenarAsc() {
-            Cola CA = new Cola(n);
-            Cola CA2 = new Cola(n);
-            int aux = 0;
-            
-            CA.LlenarCola(this);
-            aux = CA.Desencolar();
-            
-            while (!CA.ColaVacia()) {
-                if (aux > CA.Vc[0]) {
-                    CA2.Encolar(aux);
-                    aux = CA.Desencolar();
-                } else {
-                    CA2.Encolar(CA.Desencolar());
-                }
-            }
-            
-            this.Encolar(aux);
-            CA.Encolar(CA2.Desencolar());
-            this.LlenarCola(CA);
-        }
-        
-        public void OrdenarDes() {
-            Cola CD = new Cola(n);
-            Cola CD2 = new Cola(n);
-            int aux = 0;
-            
-            CD.LlenarCola(this);
-            aux = CD.Desencolar();
-            
-            while (!CD.ColaVacia()) {
-                if (aux < CD.Vc[0]) {
-                    CD2.Encolar(aux);
-                    aux = CD.Desencolar();
-                } else {
-                    CD2.Encolar(CD.Desencolar());
-                }
-            }
-            
-            this.Encolar(aux);
-            CD.Encolar(CD2.Desencolar());
-            this.LlenarCola(CD);
-    }
-    
-    public void EncolarOrdenado (int d)
-    {
-       Cola CA = new Cola(n);
-       int r = Vc[0]; 
-       int opc = Integer.parseInt(JOptionPane.showInputDialog("Ingrese '1' si desea Ordenar Ascendente o '2 si desea Ordenar Descendente"));
-       
-       if (opc == 1)
-       {
-           this.OrdenarAsc();
-           
-           while (!ColaVacia())
-           {
-               if (r <= d)
-               {
-                  CA.Desencolar(); 
-               }
-               else 
-               {
-                   CA.Encolar(d);
-                   CA.Desencolar();
-                   CA.LlenarCola();
-               }
-           }
-       }
-       else 
-       {
-           this.OrdenarDes();
-           
-           while (!ColaVacia())
-           {
-               if (r >= d )
-               {
-                   CA.Desencolar();
-               }
-               else 
-               {
-                   CA.Encolar(d);
-                   CA.Desencolar();
-                   CA.LlenarCola();
-               }
-           }
-       }
-       
-    }
-    
-    public void Mostrar(){
-        //pass
     }
 
+    public int desencolar() {
+        if (!colaVacia()) {
+            int r = primerNodo.getDato();
+            if (primerNodo == ultimoNodo) {
+                primerNodo = null;
+                ultimoNodo = null;
+            } else {
+                primerNodo = primerNodo.getSiguiente();
+            }
+            return r;
+        } else {
+            return -1; // Valor sentinela para indicar que la cola está vacía
+        }
+    }
 
-}
+    public boolean colaLlena() {
+        int contador = 0;
+        NodoCola nodoActual = primerNodo;
+        while (nodoActual != null) {
+            contador++;
+            nodoActual = nodoActual.getSiguiente();
+        }
+        return contador == limite + 1;
+    }
+
+    public void llenarCola(Cola C1) {
+        while (!C1.colaVacia() && !colaLlena()) {
+            encolar(C1.desencolar());
+        }
+    }
+
+    public void ordenarAsc() {
+        Cola CA = new Cola(n);
+        Cola CA2 = new Cola(n);
+        int aux = 0;
+
+        CA.llenarCola(this);
+        aux = CA.desencolar();
+
+        while (!CA.colaVacia()) {
+            if (aux > CA.primerNodo.getDato()) {
+                CA2.encolar(aux);
+                aux = CA.desencolar();
+            } else {
+                CA2.encolar(CA.desencolar());
+            }
+        }
+
+        encolar(aux);
+        CA.encolar(CA2.desencolar());
+        llenarCola(CA);
+    }
+
+    public void ordenarDes() {
+        Cola CD = new Cola(n);
+        Cola CD2 = new Cola(n);
+        int aux = 0;
+
+        CD.llenarCola(this);
+        aux = CD.desencolar();
+
+        while (!CD.colaVacia()) {
+            if (aux < CD.primerNodo.getDato()) {
+                CD2.encolar(aux);
+                aux = CD.desencolar();
+            } else {
+                CD2.encolar(CD.desencolar());
+            }
+        }
+
+        encolar(aux);
+        CD.encolar(CD2.desencolar());
+        llenarCola(CD);
+    }
+
+    public void encolar

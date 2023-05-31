@@ -58,7 +58,7 @@ public class Cola {
             }
             return r;
         } else {
-            return -1; // Valor sentinela para indicar que la cola está vacía
+            return -1; // Valor para indicar que la cola está vacía
         }
     }
 
